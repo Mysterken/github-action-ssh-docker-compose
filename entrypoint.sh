@@ -1,6 +1,10 @@
 #!/usb/bin/env bash
 set -e
 
+cd SalineAcademy
+cp .env.example .env
+git submodule update --init --recursive
+
 log() {
   echo ">> [local]" $@
 }
