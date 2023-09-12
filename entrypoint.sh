@@ -1,7 +1,7 @@
 #!/usb/bin/env bash
 set -e
 
-cp .env.example .env
+cp .env.prod .env
 
 log() {
   echo ">> [local]" $@
