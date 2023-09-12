@@ -28,7 +28,7 @@ if $DOCKER_COMPOSE_DOWN ; then
   remote_command="set -e ; log() { echo '>> [remote]' \$@ ; } ; cleanup() { log 'Removing workspace...'; rm -rf \"\$HOME/workspace\" ; } ; log 'Creating workspace directory...' ; mkdir -p \"\$HOME/workspace\" ; trap cleanup EXIT ; log 'Unpacking workspace...' ; tar -C \"\$HOME/workspace\" -xjv ; log 'Logging in the container registry $CONTAINER_REGISTRY'; docker login --username $CONTAINER_REGISTRY_USERNAME --password $CONTAINER_REGISTRY_TOKEN $CONTAINER_REGISTRY; log 'Launching docker compose...' ; cd \"\$HOME/workspace\" ; docker compose -f \"$DOCKER_COMPOSE_FILENAME\" -p \"$DOCKER_COMPOSE_PREFIX\" down"
 fi
 
-ssh-add <(echo "$SSH_PRIVATE_KEY")
+ssh-add <(echo "$SSH_PRIVATE_KEY" | base64 -d)
 
 echo ">> [local] Connecting to remote host."
 ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
