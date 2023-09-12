@@ -16,12 +16,6 @@ cleanup() {
 }
 trap cleanup EXIT
 
-apt update
-apt install git
-
-log "Updating submodules..."
-git submodule update --recursive --init
-
 log "Packing workspace into archive to transfer onto remote machine."
 tar cjvf /tmp/workspace.tar.bz2 .
 
