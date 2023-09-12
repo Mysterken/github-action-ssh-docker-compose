@@ -22,7 +22,7 @@ inputs:
     required: true
   docker_compose_filename:
     description: Docker compose file to use
-    default: docker-compose.yaml
+    default: docker-compose.yml
   use_stack:
     description: Use docker stack instead of docker compose ("true" or "false").
     default: 'false'
