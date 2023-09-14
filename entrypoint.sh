@@ -22,7 +22,7 @@ tar cjvf /tmp/workspace.tar.bz2 .
 log "Launching ssh agent."
 eval `ssh-agent -s`
 
-remote_command="set -e ; log() { echo '>> [remote]' \$@ ; } ; cleanup() { log 'Removing workspace...' ; } ; . ~/.bash_profile ; log 'Recreating workspace directory...' ; cd \$HOME/workspace\ ; make down ; cd .. ; sudo rm -rf \"\$HOME/workspace\" ; mkdir -p \"\$HOME/workspace\" ; trap cleanup EXIT ; log 'Unpacking workspace...' ; tar -C \"\$HOME/workspace\" -xjv ;log 'Logging in the container registry $CONTAINER_REGISTRY'; log 'Launching docker compose...' ; cd \"\$HOME/workspace\"  ; make prod"
+remote_command="set -e ; log() { echo '>> [remote]' \$@ ; } ; cleanup() { log 'Removing workspace...' ; } ; . ~/.bash_profile ; log 'Recreating workspace directory...' ; cd \"\$HOME/workspace\" ; make down ; cd .. ; sudo rm -rf \"\$HOME/workspace\" ; mkdir -p \"\$HOME/workspace\" ; trap cleanup EXIT ; log 'Unpacking workspace...' ; tar -C \"\$HOME/workspace\" -xjv ;log 'Logging in the container registry $CONTAINER_REGISTRY'; log 'Launching docker compose...' ; cd \"\$HOME/workspace\"  ; make prod"
 if $USE_DOCKER_STACK ; then
   remote_command="set -e ; log() { echo '>> [remote]' \$@ ; } ; cleanup() { log 'Removing workspace...'; rm -rf \"\$HOME/workspace\" ; } ; log 'Creating workspace directory...' ; mkdir -p \"\$HOME/workspace/$DOCKER_COMPOSE_PREFIX\" ; trap cleanup EXIT ; log 'Unpacking workspace...' ; tar -C \"\$HOME/workspace/$DOCKER_COMPOSE_PREFIX\" -xjv ; log 'Launching docker stack deploy...' ; cd \"\$HOME/workspace/$DOCKER_COMPOSE_PREFIX\" ; docker stack deploy -c \"$DOCKER_COMPOSE_FILENAME\" --prune \"$DOCKER_COMPOSE_PREFIX\""
 fi
