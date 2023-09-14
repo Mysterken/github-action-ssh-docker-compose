@@ -17,6 +17,12 @@ inputs:
   ssh_user:
     description: Remote user name.
     required: true
+  user_admin:
+    description: User with sudo rights.
+    required: true
+  user_admin_password:
+    description: Password for user with sudo rights.
+    required: true
   docker_compose_prefix:
     description: Prefix for docker-compose containers.
     required: true
@@ -37,6 +43,8 @@ runs:
     SSH_HOST: ${{ inputs.ssh_host }}
     SSH_PORT: ${{ inputs.ssh_port }}
     SSH_PRIVATE_KEY: ${{ inputs.ssh_private_key }}
+    USER_ADMIN: ${{ inputs.user_admin }}
+    USER_ADMIN_PASSWORD: ${{ inputs.user_admin_password }}
     DOCKER_COMPOSE_FILENAME: ${{ inputs.docker_compose_filename }}
     DOCKER_COMPOSE_PREFIX: ${{ inputs.docker_compose_prefix }}
     USE_DOCKER_STACK: ${{ inputs.use_stack }}
